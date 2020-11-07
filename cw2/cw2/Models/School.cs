@@ -9,22 +9,28 @@ namespace cw2.Models
     [XmlRoot(ElementName = "uczelnia")]
     public class School
     {
-        [XmlAttribute]
-        public string createdAt { set; get; }
-        [XmlAttribute]
-        public string author { set; get; }
+        [XmlAttribute(AttributeName = "createdAt")]
+        public string CreatedAt { set; get; }
+        [XmlAttribute(AttributeName = "author")]
+        public string Author { set; get; }
         
         [XmlArray(ElementName = "studenci")]
-        public List<Student> students { set; get; } = new List<Student>();
+        public List<Student> students = new List<Student>();
+
+        private HashSet<string> studentHashes = new HashSet<string>();
 
         public School()
         {
-            createdAt = DateTime.Now.ToString("dd.MM.yyyy");
+            CreatedAt = DateTime.Now.ToString("dd.MM.yyyy");
         }
 
         public void AddStudent(Student student)
         {
-            students.Add(student);
+            if (!studentHashes.Contains(student.ToString()))
+            {
+                students.Add(student);
+                studentHashes.Add(student.ToString());
+            }
         }
     }
 }

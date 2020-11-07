@@ -35,7 +35,7 @@ namespace cw2.Models
 
         override public string ToString()
         {
-            return FirstName + " " + LastName;
+            return FirstName + " " + LastName + ": " + IndexNumber;
         }
     }
 }

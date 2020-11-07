@@ -44,7 +44,7 @@ namespace cw2
 
             var school = new School
             {
-                author = "Hubert Siwkin"
+                Author = "Hubert Siwkin"
             };
             LoadStudentsData(csvPath, school);
         }
@@ -61,7 +61,17 @@ namespace cw2
                     var st = new Student
                     {
                         FirstName = student[0],
-                        LastName = student[1]
+                        LastName = student[1],
+                        Studies = new Study
+                        {
+                            Name = student[2],
+                            Mode = student[3]
+                        },
+                        IndexNumber = 's' + student[4],
+                        BirthDate = student[5],
+                        Email = student[6],
+                        MothersName = student[7],
+                        FathersName = student[8]
                     };
 
                     school.AddStudent(st);
