@@ -2,7 +2,7 @@
   "profiles": {
     "cw2": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\Users\\hsiwk\\Desktop\\csvData.csv\" \"C:\\Users\\hsiwk\\Desktop\\wynik.xml\" xml"
+      "commandLineArgs": "\"C:\\Users\\hsiwk\\Desktop\\csvData.csv\" \"C:\\Users\\hsiwk\\Desktop\\wynik.xml\" json"
     }
   }
 }

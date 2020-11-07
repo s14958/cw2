@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -46,10 +47,10 @@ namespace cw2
             {
                 Author = "Hubert Siwkin"
             };
-            LoadStudentsData(csvPath, school);
+            LoadStudentsData(csvPath, resultPath, format, school);
         }
 
-        private static void LoadStudentsData(string filePath, School school)
+        private static void LoadStudentsData(string filePath, string resultPath, string format, School school)
         {
             using (var stream = new StreamReader(File.OpenRead(filePath)))
             {
@@ -77,15 +78,28 @@ namespace cw2
                     school.AddStudent(st);
                 }
             }
-            SerializeSchool(@"C:\Users\hsiwk\Desktop\wynik.xml", school);
+            SerializeSchool(resultPath, format, school);
         }
 
-        private static void SerializeSchool(string resultPath, School school)
+        private static void SerializeSchool(string resultPath, string format, School school)
         {
-            FileStream writer = new FileStream(resultPath, FileMode.Create);            
-            XmlSerializer serializer = new XmlSerializer(typeof(School));
+            switch (format)
+            {
+                case "xml":
+                    FileStream writer = new FileStream(resultPath, FileMode.Create);
+                    XmlSerializer serializer = new XmlSerializer(typeof(School));
 
-            serializer.Serialize(writer, school);
+                    serializer.Serialize(writer, school);
+
+                    break;
+                case "json":
+                    var jsonString = JsonSerializer.Serialize(school, typeof(School), new JsonSerializerOptions
+                    {
+                        MaxDepth = 10
+                    });
+                    File.WriteAllText(resultPath, jsonString);
+                    break;
+            }
         }
     }
 }
